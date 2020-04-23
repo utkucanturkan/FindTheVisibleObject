@@ -11,7 +11,7 @@ import AVFoundation
 
 class GameView: UIView {
     
-    struct GameConstraints {
+    private struct GameConstraints {
         static fileprivate let offset = CGFloat(10)
         static fileprivate let defaultSoundRate = Float(1.0)
         static fileprivate let maxAudioRate: Float = 1.5
@@ -57,6 +57,17 @@ class GameView: UIView {
     
     private lazy var targetView: UILabel = createTargetView()
     
+    private var isTargetviewFound = false {
+        didSet {
+            if isTargetviewFound {
+                targetView.isHidden = false
+                performSelector(onMainThread: #selector(GameViewController.stopTimer), with: nil, waitUntilDone: false)
+                self.gestureRecognizers?.forEach { $0.isEnabled = false }
+                playSound(fromPath: brain.successSoundPath)
+            }
+        }
+    }
+    
     private func createTargetView() -> UILabel {
         let label = UILabel()
         label.text = brain.emoji
@@ -72,7 +83,6 @@ class GameView: UIView {
         case .began, .changed:
             let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
             let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: brain.halfOfMinDimension)
-            print("panLocation.euclideanDistance(to: targetView.center); \(rate)")
             playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
         default:
             break
@@ -85,11 +95,8 @@ class GameView: UIView {
             let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
             let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: brain.halfOfMinDimension )
             if distances.actual < brain.halfOfMinDimension {
-                print("HOORAYY")
-                targetView.isHidden = false
-                playSound(fromPath: brain.successSoundPath)
+                isTargetviewFound = true
             } else {
-                print("tapLocation.euclideanDistance(to: targetView.center); \(distances.actual)")
                 playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
             }
         default:

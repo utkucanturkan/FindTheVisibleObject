@@ -23,6 +23,7 @@ struct GameBrain {
     var distanceSoundPath: URL
     var successSoundPath: URL
     var fontSize: Double
+    var time: Int
     var size: (Double, Double)
     var minViewSize: (Double, Double) {
         return Constraints.minViewSize
@@ -37,6 +38,7 @@ struct GameBrain {
     init() {
         theme = "Horse"
         emoji = "🐴"
+        time = 0
         size = Constraints.maxViewSize
         fontSize = Constraints.fontSize
         distanceSoundPath = URL(fileURLWithPath: Constraints.distanceSoundPath!)

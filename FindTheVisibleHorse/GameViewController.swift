@@ -8,13 +8,27 @@
 
 import UIKit
 
-class GameViewController: UIViewController, UIGestureRecognizerDelegate {
-   
-    private let gameBrain = GameBrain()
-    
+class GameViewController: UIViewController, UIGestureRecognizerDelegate
+{
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameView.brain = gameBrain
+        gameView.brain = GameBrain()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @IBOutlet weak var timerLabel: UILabel!
+    
+    private var timerCounter = 0
+    private var timer = Timer()
+    
+    @objc func updateTimer() {
+        timerCounter += 1
+        timerLabel?.text = "\(timerCounter)"
+    }
+    
+    @objc func stopTimer() {
+        timer.invalidate()
+        gameView.brain.time = timerCounter
     }
     
     @IBOutlet weak var gameView: GameView! {

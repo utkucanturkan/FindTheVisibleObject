@@ -1,0 +1,6 @@
+framework module Pods_FindTheVisibleHorse {
+  umbrella header "Pods-FindTheVisibleHorse-umbrella.h"
+
+  export *
+  module * { export * }
+}
