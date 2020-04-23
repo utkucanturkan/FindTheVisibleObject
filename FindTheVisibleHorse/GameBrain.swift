@@ -13,7 +13,7 @@ struct GameBrain {
     fileprivate struct Constraints {
         static let minViewSize = (25.0, 25.0)
         static let maxViewSize = (75.0, 75.0)
-        static let fontSize = 100.0
+        static let fontSize = 50.0
         static let distanceSoundPath = Bundle.main.path(forResource: "beep", ofType: "wav")
         static let successSoundPath = Bundle.main.path(forResource: "horse-whinny", ofType: "wav")
     }

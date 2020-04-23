@@ -52,7 +52,7 @@ class GameView: UIView {
             setNeedsLayout()
         }
     }
-    
+        
     private var audioPlayer: AVAudioPlayer!
     
     private lazy var targetView: UILabel = createTargetView()
@@ -126,6 +126,7 @@ class GameView: UIView {
     
     override func draw(_ rect: CGRect) {
         addSubview(targetView)
+        self.backgroundColor = UIColor(patternImage: UIImage(named: "pattern.png")!)
         print("subview; \(self.subviews.count)")
         print("self.bounds; \(self.bounds)")
         print("targetView bounds; \(targetView.bounds)")
