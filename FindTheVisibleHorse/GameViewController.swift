@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import AVFoundation
 
-class GameViewController: UIViewController, UIGestureRecognizerDelegate {
+class GameViewController: UIViewController {
+    
+    private struct GameConstraints {
+        static fileprivate let defaultSoundRate = Float(1.0)
+    }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         gameView.brain = GameBrain()
     }
     
@@ -24,11 +29,19 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        overGame()
+    }
+    
+    
     private var timerCounter = 0
     
     private var timer = Timer()
     
     @IBOutlet weak var timerLabel: UILabel!
+    
+    private var audioPlayer: AVAudioPlayer!
     
     @IBOutlet weak var gameView: GameView! {
         didSet {
@@ -47,25 +60,47 @@ class GameViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func updateTimer() {
         timerCounter += 1
         timerLabel?.text = "\(timerCounter)"
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let recognizers = gameView.gestureRecognizers {
-            return recognizers.contains(gestureRecognizer) && recognizers.contains(otherGestureRecognizer)
-        }
-        return false
-    }
+    }    
 }
 
 extension GameViewController: GameDelegate {
+    func playSound(fromPath path: URL, withRate rate: Float = GameConstraints.defaultSoundRate, repeat loop: Bool = false) {
+        do {
+            if audioPlayer == nil || (audioPlayer.url != nil && audioPlayer.url!.absoluteString != path.absoluteString) {
+                audioPlayer = try AVAudioPlayer(contentsOf: path)
+            }
+            audioPlayer.enableRate = !(rate == GameConstraints.defaultSoundRate)
+            audioPlayer.rate = rate
+            audioPlayer.numberOfLoops = loop ? -1 : 0
+            print("Rate; \(audioPlayer.rate)")
+            audioPlayer.play()
+        } catch  {
+            print("Error; \(error)")
+        }
+    }
+        
+    func stopSound() {
+        audioPlayer?.stop()
+    }
+    
     func overGame() {
         timer.invalidate()
         gameView.brain.time = timerCounter
+        stopSound()
         print("Time; \(gameView.brain.time)")
     }
     
     func startGame() {
         timerCounter = 0
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimer), userInfo: nil, repeats: true)
+    }
+}
+
+extension GameViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let recognizers = gameView.gestureRecognizers {
+            return recognizers.contains(gestureRecognizer) && recognizers.contains(otherGestureRecognizer)
+        }
+        return false
     }
 }

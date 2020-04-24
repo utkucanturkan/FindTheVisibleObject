@@ -7,15 +7,16 @@
 //
 
 import UIKit
-import AVFoundation
 
 protocol GameDelegate {
     func startGame()
     func overGame()
+    func stopSound()
+    func playSound(fromPath path: URL, withRate rate: Float, repeat loop: Bool)
 }
 
 class GameView: UIView {
-    
+        
     private struct GameConstraints {
         static fileprivate let offset = CGFloat(10)
         static fileprivate let defaultSoundRate = Float(1.0)
@@ -65,10 +66,8 @@ class GameView: UIView {
             setNeedsLayout()
         }
     }
-        
-    private var audioPlayer: AVAudioPlayer!
-    
-    private lazy var targetView: UILabel = createTargetView()
+           
+    private lazy var targetView: UIImageView = createTargetView()
     
     private var isTargetviewFound = false {
         didSet {
@@ -76,19 +75,18 @@ class GameView: UIView {
                 gameDelegate.overGame()
                 targetView.isHidden = false
                 self.gestureRecognizers?.forEach { $0.isEnabled = false }
-                playSound(fromPath: brain.successSoundPath)
+                gameDelegate.playSound(fromPath: brain.successSoundPath, withRate: GameConstraints.defaultSoundRate, repeat: false)
             }
         }
     }
     
-    private func createTargetView() -> UILabel {
-        let label = UILabel()
-        label.text = brain.emoji
-        label.font = UIFont(name: "Helvetica", size: CGFloat(brain.fontSize))
-        label.isHidden = true
-        label.sizeToFit()
-        label.randomCenterPoint(in: self.bounds)
-        return label
+    private func createTargetView() -> UIImageView {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: brain.size.0, height: brain.size.1))
+        imageView.image = UIImage(named: "rocket")
+        imageView.isHidden = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.randomCenterPoint(in: self.bounds)
+        return imageView
     }
     
     @objc func performPanGesture(_ recognizer: UIPanGestureRecognizer) {
@@ -96,7 +94,7 @@ class GameView: UIView {
         case .began, .changed:
             let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
             let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: brain.halfOfMinDimension)
-            playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
+            gameDelegate.playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
         default:
             break
         }
@@ -110,7 +108,7 @@ class GameView: UIView {
             if distances.actual < brain.halfOfMinDimension {
                 isTargetviewFound = true
             } else {
-                playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
+                gameDelegate.playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
             }
         default:
             break
@@ -128,22 +126,7 @@ class GameView: UIView {
         let normalization = (distance - minDistance)/(hipotenus - minDistance)
         return GameConstraints.maxAudioRate - ((GameConstraints.maxAudioRate-GameConstraints.minAudioRate)*Float(normalization) + GameConstraints.minAudioRate)
     }
-    
-    private func playSound(fromPath path: URL, withRate rate: Float = GameConstraints.defaultSoundRate, repeat loop: Bool = false) {
-        do {
-            if audioPlayer == nil || (audioPlayer.url != nil && audioPlayer.url!.absoluteString != path.absoluteString) {
-                audioPlayer = try AVAudioPlayer(contentsOf: path)
-            }
-            audioPlayer.enableRate = !(rate == GameConstraints.defaultSoundRate)
-            audioPlayer.rate = rate
-            audioPlayer.numberOfLoops = loop ? -1 : 0
-            print("Rate; \(audioPlayer.rate)")
-            audioPlayer.play()
-        } catch  {
-            print("Error; \(error)")
-        }
-    }
-    
+        
     override func draw(_ rect: CGRect) {
         addSubview(targetView)
         self.backgroundColor = UIColor(patternImage: UIImage(named: "pattern.png")!)

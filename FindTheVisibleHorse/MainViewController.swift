@@ -17,11 +17,11 @@ class MainViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
     }  
-     */
+     
 }
