@@ -9,6 +9,11 @@
 import UIKit
 import AVFoundation
 
+protocol GameDelegate {
+    func startGame()
+    func overGame()
+}
+
 class GameView: UIView {
     
     private struct GameConstraints {
@@ -21,8 +26,16 @@ class GameView: UIView {
     var brain = GameBrain() {
         didSet {
             setNeedsLayout()
+            if !isGameStarted {
+                gameDelegate.startGame()
+                isGameStarted = true
+            }
         }
     }
+    
+    var gameDelegate: GameDelegate!
+    
+    private var isGameStarted = false
     
     var isRotated = false {
         didSet {
@@ -60,8 +73,8 @@ class GameView: UIView {
     private var isTargetviewFound = false {
         didSet {
             if isTargetviewFound {
+                gameDelegate.overGame()
                 targetView.isHidden = false
-                performSelector(onMainThread: #selector(GameViewController.stopTimer), with: nil, waitUntilDone: false)
                 self.gestureRecognizers?.forEach { $0.isEnabled = false }
                 playSound(fromPath: brain.successSoundPath)
             }
