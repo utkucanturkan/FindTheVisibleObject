@@ -10,7 +10,7 @@ import UIKit
 
 protocol GameDelegate {
     func startGame()
-    func overGame()
+    func overGame(isSuccess success: Bool)
     func stopSound()
     func playSound(fromPath path: URL, withRate rate: Float, repeat loop: Bool)
 }
@@ -72,7 +72,7 @@ class GameView: UIView {
     private var isTargetviewFound = false {
         didSet {
             if isTargetviewFound {
-                gameDelegate.overGame()
+                gameDelegate.overGame(isSuccess: true)
                 targetView.isHidden = false
                 self.gestureRecognizers?.forEach { $0.isEnabled = false }
                 gameDelegate.playSound(fromPath: brain.successSoundPath, withRate: GameConstraints.defaultSoundRate, repeat: false)

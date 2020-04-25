@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        overGame()
+        overGame(isSuccess: false)
     }
     
     
@@ -60,7 +60,16 @@ class GameViewController: UIViewController {
     @objc func updateTimer() {
         timerCounter += 1
         timerLabel?.text = "\(timerCounter)"
-    }    
+    }
+    
+    private func showNewGameAlert() {
+        let alert = UIAlertController(title: "Would you like to play again?", message: "You have found the image in \(gameView.brain.time) seconds...", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
 }
 
 extension GameViewController: GameDelegate {
@@ -83,11 +92,13 @@ extension GameViewController: GameDelegate {
         audioPlayer?.stop()
     }
     
-    func overGame() {
+    func overGame(isSuccess success: Bool) {
         timer.invalidate()
-        gameView.brain.time = timerCounter
         stopSound()
-        print("Time; \(gameView.brain.time)")
+        if success {
+            gameView.brain.time = timerCounter
+            showNewGameAlert()
+        }
     }
     
     func startGame() {

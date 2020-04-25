@@ -95,17 +95,41 @@
 		61680B4924323E6E0094908B /* FindTheVisibleHorse */ = {
 			isa = PBXGroup;
 			children = (
-				61680B4E24323E6E0094908B /* GameViewController.swift */,
+				61933D392453B61100ECC4CE /* View */,
+				61933D382453B5F800ECC4CE /* Model */,
+				61933D3A2453B62700ECC4CE /* Controller */,
 				61680B5024323E6E0094908B /* Main.storyboard */,
-				61579F08243E6AC30061BB98 /* MainViewController.swift */,
-				617E67652438F08200AE0706 /* GameView.swift */,
-				6137509D243D0F5E00E0FA0B /* GameBrain.swift */,
 				61680B5324323E760094908B /* Assets.xcassets */,
 				61680B5824323E760094908B /* Info.plist */,
 				6137509C243D0E9900E0FA0B /* Sounds */,
 				6137509B243D0E8400E0FA0B /* Supporting Files */,
 			);
 			path = FindTheVisibleHorse;
+			sourceTree = "<group>";
+		};
+		61933D382453B5F800ECC4CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6137509D243D0F5E00E0FA0B /* GameBrain.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		61933D392453B61100ECC4CE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				617E67652438F08200AE0706 /* GameView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		61933D3A2453B62700ECC4CE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				61579F08243E6AC30061BB98 /* MainViewController.swift */,
+				61680B4E24323E6E0094908B /* GameViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		61E442E9243BCBE800927EA2 /* Frameworks */ = {
@@ -123,7 +147,6 @@
 				EFF1162AB31749459DEF8A8D /* Pods-FindTheVisibleHorse.debug.xcconfig */,
 				6CED8B1E141F30E15247EE7C /* Pods-FindTheVisibleHorse.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
