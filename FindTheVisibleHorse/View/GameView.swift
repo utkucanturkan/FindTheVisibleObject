@@ -24,7 +24,7 @@ class GameView: UIView {
         static fileprivate let minAudioRate: Float = 0.5
     }
     
-    var brain = GameBrain() {
+    var config: GameConfiguration! {
         didSet {
             setNeedsLayout()
             if !isGameStarted {
@@ -75,14 +75,14 @@ class GameView: UIView {
                 gameDelegate.overGame(isSuccess: true)
                 targetView.isHidden = false
                 self.gestureRecognizers?.forEach { $0.isEnabled = false }
-                gameDelegate.playSound(fromPath: brain.successSoundPath, withRate: GameConstraints.defaultSoundRate, repeat: false)
+                gameDelegate.playSound(fromPath: config.successSoundPath, withRate: GameConstraints.defaultSoundRate, repeat: false)
             }
         }
     }
     
     private func createTargetView() -> UIImageView {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: brain.size.0, height: brain.size.1))
-        imageView.image = UIImage(named: "rocket")
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.0, height: config.targetViewDimensions.1))
+        imageView.image = UIImage(named: config.theme.randomTargetImageName)
         imageView.isHidden = true
         imageView.contentMode = .scaleAspectFit
         imageView.randomCenterPoint(in: self.bounds)
@@ -93,8 +93,8 @@ class GameView: UIView {
         switch recognizer.state {
         case .began, .changed:
             let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
-            let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: brain.halfOfMinDimension)
-            gameDelegate.playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
+            let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: config.halfOfMinDimension)
+            gameDelegate.playSound(fromPath: config.distanceSoundPath, withRate: rate, repeat: true)
         default:
             break
         }
@@ -104,11 +104,11 @@ class GameView: UIView {
         switch recognizer.state {
         case .began:
             let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
-            let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: brain.halfOfMinDimension )
-            if distances.actual < brain.halfOfMinDimension {
+            let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: config.halfOfMinDimension )
+            if distances.actual < config.halfOfMinDimension {
                 isTargetviewFound = true
             } else {
-                gameDelegate.playSound(fromPath: brain.distanceSoundPath, withRate: rate, repeat: true)
+                gameDelegate.playSound(fromPath: config.distanceSoundPath, withRate: rate, repeat: true)
             }
         default:
             break
@@ -117,7 +117,7 @@ class GameView: UIView {
     
     private func measureDistances(from point: CGPoint, to targetPoint: CGPoint ) -> (actual: Double, valid: Double) {
         let distance = point.euclideanDistance(to: targetPoint)
-        let validDistance = distance - brain.halfOfMinDimension
+        let validDistance = distance - config.halfOfMinDimension
         return (distance, validDistance)
     }
     
@@ -129,11 +129,12 @@ class GameView: UIView {
         
     override func draw(_ rect: CGRect) {
         addSubview(targetView)
-        self.backgroundColor = UIColor(patternImage: UIImage(named: "pattern.png")!)
-        print("subview; \(self.subviews.count)")
-        print("self.bounds; \(self.bounds)")
-        print("targetView bounds; \(targetView.bounds)")
-        print("targetView frame; \(targetView.frame)")
+        self.backgroundColor = UIColor(patternImage: UIImage(named: config.theme.backgroundImageName)!)
+        //print("subview; \(self.subviews.count)")
+        //print("self.bounds; \(self.bounds)")
+        //print("targetView bounds; \(targetView.bounds)")
+        //print("targetView frame; \(targetView.frame)")
+        //print("Layout Margins; \(targetView.layoutMargins)")
     }
 }
 

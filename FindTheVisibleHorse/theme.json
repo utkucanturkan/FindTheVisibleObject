@@ -1,0 +1,59 @@
+{
+    "themes": [
+        {
+            "name": "space",
+            "targetImages": [
+                "spaceship",
+                "spaceship2",
+                "earth",
+                "satellite",
+                "rocket",
+                "stars",
+                "planets"
+            ],
+            "backgroundImage": "spaceBackground",
+            "sounds": {
+                "distanceSounds": [
+                    "",
+                    "",
+                    ""
+                ],
+                "successSounds": [ "" ]
+            }
+        },
+        {
+            "name": "sports",
+            "targetImages": [
+                "",
+                ""
+            ],
+            "backgroundImage": "",
+            "sounds": {
+                "distanceSounds": [
+                    "",
+                    "",
+                    ""
+                ],
+                "successSounds": [ "" ]
+            }
+        },
+        {
+            "name": "animals",
+            "targetImages": [
+
+            ],
+            "backgroundImage": "",
+            "sounds": {
+                "distanceSounds": [
+                    "",
+                    "",
+                    ""
+                ],
+                "successSounds": [
+                    "",
+                    ""
+                ]
+            }
+        }
+    ]
+}

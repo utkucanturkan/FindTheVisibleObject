@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6137509E243D0F5E00E0FA0B /* GameBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6137509D243D0F5E00E0FA0B /* GameBrain.swift */; };
+		6137509E243D0F5E00E0FA0B /* GameConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6137509D243D0F5E00E0FA0B /* GameConfiguration.swift */; };
 		613750A0243D180700E0FA0B /* horse-whinny.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6137509F243D180700E0FA0B /* horse-whinny.wav */; };
 		61579F09243E6AC30061BB98 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61579F08243E6AC30061BB98 /* MainViewController.swift */; };
 		61680B4B24323E6E0094908B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61680B4A24323E6E0094908B /* AppDelegate.swift */; };
@@ -17,13 +17,15 @@
 		61680B5424323E760094908B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61680B5324323E760094908B /* Assets.xcassets */; };
 		61680B5724323E760094908B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61680B5524323E760094908B /* LaunchScreen.storyboard */; };
 		617E67662438F08200AE0706 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617E67652438F08200AE0706 /* GameView.swift */; };
+		617E6DF02454DCB40072C98F /* theme.json in Resources */ = {isa = PBXBuildFile; fileRef = 617E6DEF2454DCB40072C98F /* theme.json */; };
+		617E6DF22454DF620072C98F /* GameTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617E6DF12454DF620072C98F /* GameTheme.swift */; };
 		61E442EB243BCBE800927EA2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E442EA243BCBE800927EA2 /* AVFoundation.framework */; };
 		61E442EF243BE77900927EA2 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 61E442EE243BE77900927EA2 /* beep.wav */; };
 		7F7D68C161214E775B198364 /* Pods_FindTheVisibleHorse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC750D7F16CE91C8EEC85ACF /* Pods_FindTheVisibleHorse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6137509D243D0F5E00E0FA0B /* GameBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBrain.swift; sourceTree = "<group>"; };
+		6137509D243D0F5E00E0FA0B /* GameConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfiguration.swift; sourceTree = "<group>"; };
 		6137509F243D180700E0FA0B /* horse-whinny.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "horse-whinny.wav"; sourceTree = "<group>"; };
 		61579F08243E6AC30061BB98 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		61680B4724323E6E0094908B /* FindTheVisibleHorse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTheVisibleHorse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +37,8 @@
 		61680B5624323E760094908B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		61680B5824323E760094908B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		617E67652438F08200AE0706 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		617E6DEF2454DCB40072C98F /* theme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = theme.json; sourceTree = "<group>"; };
+		617E6DF12454DF620072C98F /* GameTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTheme.swift; sourceTree = "<group>"; };
 		61E442EA243BCBE800927EA2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		61E442EE243BE77900927EA2 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		6CED8B1E141F30E15247EE7C /* Pods-FindTheVisibleHorse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindTheVisibleHorse.release.xcconfig"; path = "Target Support Files/Pods-FindTheVisibleHorse/Pods-FindTheVisibleHorse.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 				61680B5024323E6E0094908B /* Main.storyboard */,
 				61680B5324323E760094908B /* Assets.xcassets */,
 				61680B5824323E760094908B /* Info.plist */,
+				617E6DEF2454DCB40072C98F /* theme.json */,
 				6137509C243D0E9900E0FA0B /* Sounds */,
 				6137509B243D0E8400E0FA0B /* Supporting Files */,
 			);
@@ -110,7 +115,8 @@
 		61933D382453B5F800ECC4CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6137509D243D0F5E00E0FA0B /* GameBrain.swift */,
+				6137509D243D0F5E00E0FA0B /* GameConfiguration.swift */,
+				617E6DF12454DF620072C98F /* GameTheme.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +218,7 @@
 				61680B5724323E760094908B /* LaunchScreen.storyboard in Resources */,
 				613750A0243D180700E0FA0B /* horse-whinny.wav in Resources */,
 				61E442EF243BE77900927EA2 /* beep.wav in Resources */,
+				617E6DF02454DCB40072C98F /* theme.json in Resources */,
 				61680B5424323E760094908B /* Assets.xcassets in Resources */,
 				61680B5224323E6E0094908B /* Main.storyboard in Resources */,
 			);
@@ -249,8 +256,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				617E6DF22454DF620072C98F /* GameTheme.swift in Sources */,
 				61680B4F24323E6E0094908B /* GameViewController.swift in Sources */,
-				6137509E243D0F5E00E0FA0B /* GameBrain.swift in Sources */,
+				6137509E243D0F5E00E0FA0B /* GameConfiguration.swift in Sources */,
 				61680B4B24323E6E0094908B /* AppDelegate.swift in Sources */,
 				61579F09243E6AC30061BB98 /* MainViewController.swift in Sources */,
 				617E67662438F08200AE0706 /* GameView.swift in Sources */,

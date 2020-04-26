@@ -46,21 +46,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="D2E-Cg-4yi" customClass="GameView" customModule="FindTheVisibleHorse" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BYm-3r-ItH">
-                                        <rect key="frame" x="367" y="20.000000000000004" width="27" height="56.333333333333343"/>
+                                        <rect key="frame" x="367" y="35" width="27" height="56.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sw-Gs-0SC">
                                                 <rect key="frame" x="4.3333333333333144" y="0.0" width="18.666666666666668" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sec" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7s9-VI-hxc">
                                                 <rect key="frame" x="0.0" y="36" width="27" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -69,7 +69,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstItem="BYm-3r-ItH" firstAttribute="top" secondItem="D2E-Cg-4yi" secondAttribute="top" constant="20" symbolic="YES" id="Pf9-ll-K2C"/>
+                                    <constraint firstItem="BYm-3r-ItH" firstAttribute="top" secondItem="D2E-Cg-4yi" secondAttribute="top" constant="35" id="Pf9-ll-K2C"/>
                                     <constraint firstAttribute="trailing" secondItem="BYm-3r-ItH" secondAttribute="trailing" constant="20" symbolic="YES" id="PhZ-Ip-VLE"/>
                                 </constraints>
                             </view>
@@ -79,7 +79,7 @@
                             <constraint firstAttribute="bottom" secondItem="D2E-Cg-4yi" secondAttribute="bottom" id="RxV-wr-Fjl"/>
                             <constraint firstItem="D2E-Cg-4yi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gJK-rz-i2t"/>
                             <constraint firstAttribute="trailing" secondItem="D2E-Cg-4yi" secondAttribute="trailing" id="wA2-Bs-cQT"/>
-                            <constraint firstItem="D2E-Cg-4yi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xMZ-82-s3t"/>
+                            <constraint firstItem="D2E-Cg-4yi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xMZ-82-s3t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

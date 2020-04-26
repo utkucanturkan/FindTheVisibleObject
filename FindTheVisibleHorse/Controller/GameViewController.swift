@@ -16,8 +16,9 @@ class GameViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
-        gameView.brain = GameBrain()
+        super.viewDidLoad()
+        let theme = GameTheme(name: "space")
+        gameView.config = GameConfiguration(gameTheme: theme, gameLevel: .easy)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -27,6 +28,15 @@ class GameViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,7 +73,7 @@ class GameViewController: UIViewController {
     }
     
     private func showNewGameAlert() {
-        let alert = UIAlertController(title: "Would you like to play again?", message: "You have found the image in \(gameView.brain.time) seconds...", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Would you like to play again?", message: "You have found the image in \(gameView.config.time) seconds...", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
@@ -96,7 +106,7 @@ extension GameViewController: GameDelegate {
         timer.invalidate()
         stopSound()
         if success {
-            gameView.brain.time = timerCounter
+            gameView.config.time = timerCounter
             showNewGameAlert()
         }
     }
