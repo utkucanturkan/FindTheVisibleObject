@@ -8,26 +8,22 @@
 
 import Foundation
 
-struct GameTheme {
+struct GameTheme: Decodable {
     
-    enum Sound {
-        case far(String)
-        case middle(String)
-        case near(String)
-        case success(String)
+    private enum CodingKeys: String, CodingKey {
+        case name, backgroundImageName, targetImageNames, soundNames
+    }
+    
+    enum SoundType: String, Decodable {
+        case far, middle, near, success
     }
     
     private(set) var name: String
-    private(set) var backgroundImageName: String = "spaceBackground"
-    var targetImageNames = [String]()
-    var sounds = [Sound]()
-    var randomTargetImageName: String {
-        //return targetImageNames[Int.random(in: 0..<targetImageNames.count)]
-        return "rocket"
-    }
+    private(set) var backgroundImageName: String
+    var targetImageNames: [String]
+    var soundNames: [SoundType: String]
     
-    init(name: String) {
-        self.name = name
-        sounds.append(contentsOf: [.far("farSound"), .middle("middleSound"), .near("nearSound"), .success("successSound")])
+    var randomTargetImageName: String {
+        return targetImageNames[Int.random(in: 0..<targetImageNames.count)]
     }
 }

@@ -1,59 +1,49 @@
-{
-    "themes": [
-        {
-            "name": "space",
-            "targetImages": [
-                "spaceship",
-                "spaceship2",
-                "earth",
-                "satellite",
-                "rocket",
-                "stars",
-                "planets"
-            ],
-            "backgroundImage": "spaceBackground",
-            "sounds": {
-                "distanceSounds": [
-                    "",
-                    "",
-                    ""
-                ],
-                "successSounds": [ "" ]
-            }
-        },
-        {
-            "name": "sports",
-            "targetImages": [
-                "",
-                ""
-            ],
-            "backgroundImage": "",
-            "sounds": {
-                "distanceSounds": [
-                    "",
-                    "",
-                    ""
-                ],
-                "successSounds": [ "" ]
-            }
-        },
-        {
-            "name": "animals",
-            "targetImages": [
-
-            ],
-            "backgroundImage": "",
-            "sounds": {
-                "distanceSounds": [
-                    "",
-                    "",
-                    ""
-                ],
-                "successSounds": [
-                    "",
-                    ""
-                ]
-            }
-        }
-    ]
-}
+[
+   {
+      "name":"space",
+      "targetImagesNames":[
+         "spaceship",
+         "spaceship2",
+         "earth",
+         "satellite",
+         "rocket",
+         "stars",
+         "planets"
+      ],
+      "backgroundImageName":"spaceBackground",
+      "soundNames":{
+         "far": "space-far-sound",
+         "middle": "space-middle-sound",
+         "near": "space-near-sound",
+         "success": "space-success-sound"
+      }
+   },
+   {
+      "name":"sports",
+      "targetImagesNames":[
+         "",
+         ""
+      ],
+      "backgroundImageName":"",
+      "soundNames":{
+         "far":"space-far-sound",
+         "middle":"space-middle-sound",
+         "near":"space-near-sound",
+         "success":"space-success-sound"
+      }
+   },
+   {
+      "name":"animals",
+      "targetImagesNames":[
+         "",
+         ""
+      ],
+      "backgroundImageName":"",
+      "soundNames":{
+         "far":"space-far-sound",
+         "middle":"space-middle-sound",
+         "near":"space-near-sound",
+         "success":"space-success-sound"
+      }
+   }
+]

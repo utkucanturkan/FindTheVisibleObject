@@ -14,6 +14,17 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        if let path = Bundle.main.path(forResource: "theme", ofType: "json") {
+            do {
+                let themesJsonData = try Data(contentsOf: URL(fileURLWithPath: path))
+                let themes = try? JSONDecoder().decode(GameTheme.self, from: themesJsonData)
+            } catch  {
+                // ERROR
+            }
+        }
+        
+
     }
     
 
