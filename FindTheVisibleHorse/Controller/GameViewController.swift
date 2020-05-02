@@ -15,10 +15,11 @@ class GameViewController: UIViewController {
         static fileprivate let defaultSoundRate = Float(1.0)
     }
     
+    var theme: GameTheme!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let theme = GameTheme(name: "space")
-        gameView.config = GameConfiguration(gameTheme: theme, gameLevel: .easy)
+        gameView.config = GameConfiguration(theme: theme, level: .easy)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

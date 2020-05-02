@@ -57,9 +57,9 @@ struct GameConfiguration {
         return min(targetViewDimensions.0, targetViewDimensions.1)/2
     }
     
-    init(gameTheme: GameTheme, gameLevel: GameLevel) {
-        self.theme = gameTheme
-        self.level = gameLevel
+    init(theme: GameTheme, level: GameLevel) {
+        self.theme = theme
+        self.level = level
         
         distanceSoundPath = URL(fileURLWithPath: Constraints.distanceSoundPath!)
         successSoundPath = URL(fileURLWithPath: Constraints.successSoundPath!)

@@ -1,7 +1,7 @@
 [
    {
       "name":"space",
-      "targetImagesNames":[
+      "targetImageNames":[
          "spaceship",
          "spaceship2",
          "earth",
@@ -11,7 +11,7 @@
          "planets"
       ],
       "backgroundImageName":"spaceBackground",
-      "soundNames":{
+      "soundNames": {
          "far": "space-far-sound",
          "middle": "space-middle-sound",
          "near": "space-near-sound",
@@ -20,12 +20,12 @@
    },
    {
       "name":"sports",
-      "targetImagesNames":[
+      "targetImageNames":[
          "",
          ""
       ],
       "backgroundImageName":"",
-      "soundNames":{
+      "soundNames": {
          "far":"space-far-sound",
          "middle":"space-middle-sound",
          "near":"space-near-sound",
@@ -34,12 +34,12 @@
    },
    {
       "name":"animals",
-      "targetImagesNames":[
+      "targetImageNames":[
          "",
          ""
       ],
       "backgroundImageName":"",
-      "soundNames":{
+      "soundNames": {
          "far":"space-far-sound",
          "middle":"space-middle-sound",
          "near":"space-near-sound",
