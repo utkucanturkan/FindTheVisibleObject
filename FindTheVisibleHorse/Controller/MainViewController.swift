@@ -13,19 +13,27 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
-        
     }
     
-    private var gameTheme: GameTheme?
+    private var themePreferenceIndex = 0
     
-    private func loadThemes() {
-        guard let path = Bundle.main.path(forResource: "theme", ofType: "json") else { return }
+    private var gameTheme: GameTheme? {
+        if let theme = loadLocalThemes() {
+            return theme[themePreferenceIndex]
+        }
+        return nil
+    }
+    
+    private func loadLocalThemes() -> [GameTheme]? {
+        var themes: [GameTheme]?
+        guard let path = Bundle.main.path(forResource: "theme", ofType: "json") else { return themes }
         do {
             let themesJsonData = try Data(contentsOf: URL(fileURLWithPath: path))
-            let themes = try JSONDecoder().decode([GameTheme].self, from: themesJsonData)
+            themes = try JSONDecoder().decode([GameTheme].self, from: themesJsonData)
         } catch let err {
             print("\(err)")
         }
+        return themes
     }
     
     // MARK: - Navigation
@@ -34,13 +42,11 @@ class MainViewController: UIViewController {
             switch identifier {
             case "StartGame":
                 if let gvc = segue.destination as? GameViewController {
-                    gvc.theme = gameTheme ?? nil
+                    gvc.theme = gameTheme
                 }
             default:
                 break
             }
         }
-        
-    }  
-     
+    }
 }
