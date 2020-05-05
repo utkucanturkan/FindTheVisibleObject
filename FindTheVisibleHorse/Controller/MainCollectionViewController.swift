@@ -13,25 +13,26 @@ private let reuseIdentifier = "Cell"
 class MainCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     private struct Constraits {
-        static let titleText = "Find Visible Object"
+        static let titleText = "Dashboard"
+        static let cellSpacing = CGFloat(25)
+        static let cellHeight = CGFloat(150)
         static let cells = [
             ("Mode","gameModeCell"),
             ("Theme","gameThemeCell"),
             ("Level", "gameLevelCell"),
             ("Profile", "profileCell"),
-            ("Settings", "gameSettingsCell"),
             ("Statistics", "gameStatisticsCell")
         ]
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = Constraits.titleText
+        self.title = Constraits.titleText
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -58,21 +59,28 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        // Configure the cell
-        let label = UILabel(frame: CGRect(origin: CGPoint.zero, size: cell.frame.size))
-        label.text = Constraits.cells[indexPath.row].0
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DashboardCollectionViewCell
         
-        cell.addSubview(label)
+        cell.model = Constraits.cells[indexPath.row]
         
         return cell
     }
 
+
     // MARK: UICollectionViewDelegateFlowLayout
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width/2-10, height: 150)
+        return CGSize(width: collectionView.bounds.size.width/2 - Constraits.cellSpacing*2, height: Constraits.cellHeight)
     }
 
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return Constraits.cellSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return Constraits.cellSpacing
+    }
     
     // MARK: UICollectionViewDelegate
 
