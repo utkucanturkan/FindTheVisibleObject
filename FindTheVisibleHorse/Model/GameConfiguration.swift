@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum GameLevel {
-    case easy, medium, hard
+enum GameLevel: Int {
+    case easy = 0, medium, hard
 }
 
 struct GameConfiguration {

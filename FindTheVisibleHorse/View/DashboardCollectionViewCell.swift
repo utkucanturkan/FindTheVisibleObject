@@ -19,7 +19,7 @@ class DashboardCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var model: (title: String, imageName: String)? {
+    var model: (title: String, imageName: String)! {
         didSet {
             title?.text = model?.title
             if let imageName = model?.imageName {

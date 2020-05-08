@@ -15,11 +15,11 @@ class GameViewController: UIViewController {
         static fileprivate let defaultSoundRate = Float(1.0)
     }
     
-    var theme: GameTheme!
+    var configuration: GameConfiguration!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameView.config = GameConfiguration(theme: theme, level: .easy)
+        gameView.config = configuration
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -38,6 +38,7 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {

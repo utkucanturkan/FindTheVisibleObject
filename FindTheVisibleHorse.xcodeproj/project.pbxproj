@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6137509E243D0F5E00E0FA0B /* GameConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6137509D243D0F5E00E0FA0B /* GameConfiguration.swift */; };
 		613750A0243D180700E0FA0B /* horse-whinny.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6137509F243D180700E0FA0B /* horse-whinny.wav */; };
-		61579F09243E6AC30061BB98 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61579F08243E6AC30061BB98 /* MainViewController.swift */; };
 		61680B4B24323E6E0094908B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61680B4A24323E6E0094908B /* AppDelegate.swift */; };
 		61680B4D24323E6E0094908B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61680B4C24323E6E0094908B /* SceneDelegate.swift */; };
 		61680B4F24323E6E0094908B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61680B4E24323E6E0094908B /* GameViewController.swift */; };
@@ -29,7 +28,6 @@
 /* Begin PBXFileReference section */
 		6137509D243D0F5E00E0FA0B /* GameConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfiguration.swift; sourceTree = "<group>"; };
 		6137509F243D180700E0FA0B /* horse-whinny.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "horse-whinny.wav"; sourceTree = "<group>"; };
-		61579F08243E6AC30061BB98 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		61680B4724323E6E0094908B /* FindTheVisibleHorse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTheVisibleHorse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61680B4A24323E6E0094908B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61680B4C24323E6E0094908B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 		61933D3A2453B62700ECC4CE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				61579F08243E6AC30061BB98 /* MainViewController.swift */,
 				61680B4E24323E6E0094908B /* GameViewController.swift */,
 				617C48B224620C2D00892F15 /* MainCollectionViewController.swift */,
 			);
@@ -276,7 +273,6 @@
 				6137509E243D0F5E00E0FA0B /* GameConfiguration.swift in Sources */,
 				618C902024622B8500D50C2E /* DashboardCollectionViewCell.swift in Sources */,
 				61680B4B24323E6E0094908B /* AppDelegate.swift in Sources */,
-				61579F09243E6AC30061BB98 /* MainViewController.swift in Sources */,
 				617E67662438F08200AE0706 /* GameView.swift in Sources */,
 				61680B4D24323E6E0094908B /* SceneDelegate.swift in Sources */,
 			);
@@ -423,6 +419,7 @@
 			baseConfigurationReference = EFF1162AB31749459DEF8A8D /* Pods-FindTheVisibleHorse.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RT8JX4CV4C;
 				INFOPLIST_FILE = FindTheVisibleHorse/Info.plist;
@@ -432,6 +429,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.utkucanturkan.FindTheVisibleHorse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -442,6 +440,7 @@
 			baseConfigurationReference = 6CED8B1E141F30E15247EE7C /* Pods-FindTheVisibleHorse.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RT8JX4CV4C;
 				INFOPLIST_FILE = FindTheVisibleHorse/Info.plist;
@@ -451,6 +450,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.utkucanturkan.FindTheVisibleHorse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -13,9 +13,7 @@ struct GameTheme: Decodable {
     private enum CodingKeys: String, CodingKey {
         case name, backgroundImageName, targetImageNames, soundNames
     }
-    
-
-    
+        
     private(set) var name: String
     private(set) var backgroundImageName: String
     var targetImageNames: [String]

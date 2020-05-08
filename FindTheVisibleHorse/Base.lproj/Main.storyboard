@@ -65,11 +65,12 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="cEB-nH-T0v">
-                        <barButtonItem key="rightBarButtonItem" title="Start Game" id="UMK-Qn-F0V"/>
+                        <barButtonItem key="rightBarButtonItem" title="Start Game" id="UMK-Qn-F0V">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="startGameSegueIdentifier" id="yAA-or-Dxd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" id="q8E-fS-GzL"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Awv-vG-gcd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,7 +185,7 @@
         <scene sceneID="vAg-nc-FiH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P4Y-Kk-x7a" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Dashboard" id="u7g-2n-GdK"/>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="square.stack.3d.up.fill" catalog="system" id="u7g-2n-GdK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BbR-1s-gUs">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -203,7 +204,7 @@
         <scene sceneID="ThB-g4-FZg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QxF-l2-TsE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="Ymv-wP-fyj"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="Ymv-wP-fyj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9A1-ag-uw3">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -219,4 +220,8 @@
             <point key="canvasLocation" x="2556.521739130435" y="-534.375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="square.stack.3d.up.fill" catalog="system" width="128" height="124"/>
+    </resources>
 </document>
