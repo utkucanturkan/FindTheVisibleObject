@@ -27,16 +27,10 @@ class GameView: UIView {
     var config: GameConfiguration! {
         didSet {
             setNeedsLayout()
-            if !isGameStarted {
-                gameDelegate.startGame()
-                isGameStarted = true
-            }
         }
     }
     
     var gameDelegate: GameDelegate!
-    
-    private var isGameStarted = false
     
     var isRotated = false {
         didSet {

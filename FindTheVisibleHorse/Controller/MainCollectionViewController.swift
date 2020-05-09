@@ -8,14 +8,13 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class MainCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     private struct Constraits {
         static let startGameSegueIdentifier = "startGameSegueIdentifier"
         static let localThemesPath = Bundle.main.path(forResource: "theme", ofType: "json")
         static let titleText = "Dashboard"
+        static let cellReuseIdentifier = "Cell"
         static let cellSpacing = CGFloat(25)
         static let cellHeight = CGFloat(150)
         static let cells = [
@@ -33,9 +32,10 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     // MARK: Theme
     private var themePreferenceIndex = 0 {
         didSet {
-            // change cell background
+            // TODO: change cell background
             if themePreferenceIndex >= 0 {
-                print("Theme: \(themes![themePreferenceIndex].name)")
+                configuration?.theme = themes![themePreferenceIndex]
+                print("Theme: \(configuration?.theme.name ?? "")")
             }
         }
     }
@@ -50,7 +50,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
                 let themesJsonData = try Data(contentsOf: URL(fileURLWithPath: path))
                 loadedThemes = try JSONDecoder().decode([GameTheme].self, from: themesJsonData)
             } catch let err {
-                // ERROR; local themes could not be fetched.
+                // TODO: ERROR; local themes could not be fetched.
                 print("\(err)")
             }
             return loadedThemes
@@ -73,7 +73,8 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     // MARK: Level
     private var level = GameLevel.medium {
         didSet {
-             print("\(level)")
+            configuration?.level = level
+            print("Level: \(configuration?.level)")
         }
     }
     
@@ -81,6 +82,10 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         level = GameLevel(rawValue: level.rawValue + 1) ?? .easy
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,16 +125,13 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         return 1
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Constraits.cells.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DashboardCollectionViewCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constraits.cellReuseIdentifier, for: indexPath) as! DashboardCollectionViewCell
         cell.model = Constraits.cells[indexPath.row]
-        
         return cell
     }
     

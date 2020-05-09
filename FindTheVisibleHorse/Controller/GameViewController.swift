@@ -15,24 +15,10 @@ class GameViewController: UIViewController {
         static fileprivate let defaultSoundRate = Float(1.0)
     }
     
-    var configuration: GameConfiguration!
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameView.config = configuration
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        switch UIDevice.current.orientation {
-        case .portrait, .landscapeLeft, .landscapeRight:
-            gameView.isRotated = true
-        default:
-            break
-        }
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        startGame()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,14 +32,38 @@ class GameViewController: UIViewController {
         overGame(isSuccess: false)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        switch UIDevice.current.orientation {
+        case .portrait, .landscapeLeft, .landscapeRight:
+            gameView.isRotated = true
+        default:
+            break
+        }
+    }
+    
+    // MARK: variables
+    var configuration: GameConfiguration!
+        
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     private var timerCounter = 0
     
     private var timer = Timer()
     
+    private var audioPlayer: AVAudioPlayer!
+    
+    // MARK: Outlets
     @IBOutlet weak var timerLabel: UILabel!
     
-    private var audioPlayer: AVAudioPlayer!
+    @IBOutlet weak var exitButton: UIImageView! {
+        didSet {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.exitGameAlert(_:)))
+            exitButton.isUserInteractionEnabled = true
+            exitButton.addGestureRecognizer(tapGesture)
+        }
+    }
     
     @IBOutlet weak var gameView: GameView! {
         didSet {
@@ -68,18 +78,47 @@ class GameViewController: UIViewController {
             gameView.gameDelegate = self
         }
     }
+
     
-    @objc func updateTimer() {
+    // MARK: Timer
+    @objc private func updateTimer() {
         timerCounter += 1
         timerLabel?.text = "\(timerCounter)"
     }
     
+    private func stopTimer() {
+        timer.invalidate()
+    }
+    
+    private func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimer), userInfo: nil, repeats: true)
+    }
+
+    
+    // MARK: Alerts
+    @objc func exitGameAlert(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .ended {
+            stopTimer()
+            stopSound()
+            let alert = UIAlertController(title: "End Game", message: "Do you really want to end the game?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default) { _ in
+                self.navigationController?.popViewController(animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "No", style: .cancel) { _ in
+                self.startTimer()
+            })
+            self.present(alert, animated: true)
+        }
+    }
+    
     private func showNewGameAlert() {
         let alert = UIAlertController(title: "Would you like to play again?", message: "You have found the image in \(gameView.config.time) seconds...", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-
+        alert.addAction(UIAlertAction(title: "Yes", style: .default){ _ in
+            self.startGame()
+        })
+        alert.addAction(UIAlertAction(title: "No", style: .cancel) { _ in
+            self.navigationController?.popViewController(animated: true)
+        })
         self.present(alert, animated: true)
     }
 }
@@ -105,7 +144,7 @@ extension GameViewController: GameDelegate {
     }
     
     func overGame(isSuccess success: Bool) {
-        timer.invalidate()
+        stopTimer()
         stopSound()
         if success {
             gameView.config.time = timerCounter
@@ -115,7 +154,8 @@ extension GameViewController: GameDelegate {
     
     func startGame() {
         timerCounter = 0
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameViewController.updateTimer), userInfo: nil, repeats: true)
+        gameView.config = configuration
+        startTimer()
     }
 }
 
