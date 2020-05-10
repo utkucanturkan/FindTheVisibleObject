@@ -26,6 +26,9 @@ class GameView: UIView {
     
     var config: GameConfiguration! {
         didSet {
+            targetView = nil
+            setEnableAllGestureRecognizers(to: true)
+            createTargetView()
             setNeedsLayout()
         }
     }
@@ -61,26 +64,30 @@ class GameView: UIView {
         }
     }
            
-    private lazy var targetView: UIImageView = createTargetView()
+    private var targetView: UIImageView!
     
     private var isTargetviewFound = false {
         didSet {
             if isTargetviewFound {
-                gameDelegate.overGame(isSuccess: true)
                 targetView.isHidden = false
-                self.gestureRecognizers?.forEach { $0.isEnabled = false }
+                gameDelegate.overGame(isSuccess: true)
+                setEnableAllGestureRecognizers(to: false)
                 gameDelegate.playSound(fromPath: config.successSoundPath, withRate: GameConstraints.defaultSoundRate, repeat: false)
             }
         }
     }
     
-    private func createTargetView() -> UIImageView {
+    private func createTargetView() {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.0, height: config.targetViewDimensions.1))
         imageView.image = UIImage(named: config.theme.randomTargetImageName)
         imageView.isHidden = true
         imageView.contentMode = .scaleAspectFit
         imageView.randomCenterPoint(in: self.bounds)
-        return imageView
+        targetView = imageView
+    }
+    
+    private func setEnableAllGestureRecognizers(to value: Bool) {
+        self.gestureRecognizers?.forEach { $0.isEnabled = value }
     }
     
     @objc func performPanGesture(_ recognizer: UIPanGestureRecognizer) {

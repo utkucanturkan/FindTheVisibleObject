@@ -20,6 +20,10 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         startGame()
     }
+
+    deinit {
+        print("GameViewController Deinitialization")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -59,7 +63,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var exitButton: UIImageView! {
         didSet {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.exitGameAlert(_:)))
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showExitGameAlert(_:)))
             exitButton.isUserInteractionEnabled = true
             exitButton.addGestureRecognizer(tapGesture)
         }
@@ -96,7 +100,7 @@ class GameViewController: UIViewController {
 
     
     // MARK: Alerts
-    @objc func exitGameAlert(_ recognizer: UITapGestureRecognizer) {
+    @objc func showExitGameAlert(_ recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
             stopTimer()
             stopSound()
@@ -113,12 +117,14 @@ class GameViewController: UIViewController {
     
     private func showNewGameAlert() {
         let alert = UIAlertController(title: "Would you like to play again?", message: "You have found the image in \(gameView.config.time) seconds...", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default){ _ in
+        let yesAction = UIAlertAction(title: "Yes", style: .default){ _ in
             self.startGame()
-        })
-        alert.addAction(UIAlertAction(title: "No", style: .cancel) { _ in
+        }
+        let noAction = UIAlertAction(title: "No", style: .cancel) { _ in
             self.navigationController?.popViewController(animated: true)
-        })
+        }
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
         self.present(alert, animated: true)
     }
 }
