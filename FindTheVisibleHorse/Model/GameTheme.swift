@@ -16,8 +16,8 @@ struct GameTheme: Decodable {
         
     private(set) var name: String
     private(set) var backgroundImageName: String
-    var targetImageNames: [String]
-    var soundNames: SoundType
+    private(set) var targetImageNames: [String]
+    private(set) var soundNames: SoundType
     
     var randomTargetImageName: String {
         return targetImageNames[Int.random(in: 0..<targetImageNames.count)]
