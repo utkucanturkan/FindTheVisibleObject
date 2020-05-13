@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GameDelegate {
-    func startGame()
+    func startNewGame()
     func overGame(isSuccess success: Bool)
     func stopSound()
     func playSound(fromPath path: URL, withRate rate: Float, repeat loop: Bool)
@@ -26,9 +26,7 @@ class GameView: UIView {
     
     var config: GameConfiguration! {
         didSet {
-            targetView = nil
-            setEnableAllGestureRecognizers(to: true)
-            createTargetView()
+            setup()
             setNeedsLayout()
         }
     }
@@ -77,6 +75,17 @@ class GameView: UIView {
         }
     }
     
+    private func setup() {
+        setEnableAllGestureRecognizers(to: true)
+        if targetView == nil {
+            createTargetView()
+        } else {
+            targetView.isHidden = true
+            targetView.randomCenterPoint(in: self.bounds)
+            targetView.image = UIImage(named: config.theme.randomTargetImageName)
+        }
+    }
+    
     private func createTargetView() {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.0, height: config.targetViewDimensions.1))
         imageView.image = UIImage(named: config.theme.randomTargetImageName)
@@ -93,9 +102,8 @@ class GameView: UIView {
     @objc func performPanGesture(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began, .changed:
-            let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
-            let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: config.halfOfMinDimension)
-            gameDelegate.playSound(fromPath: config.distanceSoundPath, withRate: rate, repeat: true)
+            let valueByRecognizer = calculateRateAndDistance(by: recognizer)
+            gameDelegate.playSound(fromPath: config.distanceSoundPath, withRate: valueByRecognizer.rate, repeat: true)
         default:
             break
         }
@@ -104,16 +112,21 @@ class GameView: UIView {
     @objc func performTapGesture(_ recognizer: UILongPressGestureRecognizer) {
         switch recognizer.state {
         case .began:
-            let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
-            let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: config.halfOfMinDimension )
-            if distances.actual < config.halfOfMinDimension {
+            let valuesByRecognizer = calculateRateAndDistance(by: recognizer)
+            if valuesByRecognizer.distances.actual < config.halfOfMinDimension {
                 isTargetviewFound = true
             } else {
-                gameDelegate.playSound(fromPath: config.distanceSoundPath, withRate: rate, repeat: true)
+                gameDelegate.playSound(fromPath: config.distanceSoundPath, withRate: valuesByRecognizer.rate, repeat: true)
             }
         default:
             break
         }
+    }
+    
+    private func calculateRateAndDistance(by recognizer: UIGestureRecognizer) -> (rate: Float, distances: (actual: Double, valid: Double)) {
+        let distances = measureDistances(from: recognizer.location(in: self), to: targetView.center)
+        let rate = calculateNormalizedAudioRate(by: distances.valid, minimumDistance: config.halfOfMinDimension)
+        return (rate, distances)
     }
     
     private func measureDistances(from point: CGPoint, to targetPoint: CGPoint ) -> (actual: Double, valid: Double) {

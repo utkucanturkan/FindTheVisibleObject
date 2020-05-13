@@ -18,7 +18,7 @@ class GameViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        startGame()
+        startNewGame()
     }
 
     deinit {
@@ -118,7 +118,7 @@ class GameViewController: UIViewController {
     private func showNewGameAlert() {
         let alert = UIAlertController(title: "Would you like to play again?", message: "You have found the image in \(gameView.config.time) seconds...", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default){ _ in
-            self.startGame()
+            self.startNewGame()
         }
         let noAction = UIAlertAction(title: "No", style: .cancel) { _ in
             self.navigationController?.popViewController(animated: true)
@@ -153,12 +153,12 @@ extension GameViewController: GameDelegate {
         stopTimer()
         stopSound()
         if success {
-            gameView.config.time = timerCounter
+            //gameView.config.time = timerCounter
             showNewGameAlert()
         }
     }
     
-    func startGame() {
+    func startNewGame() {
         timerCounter = 0
         gameView.config = configuration
         startTimer()
