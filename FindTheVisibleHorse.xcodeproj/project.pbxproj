@@ -15,6 +15,8 @@
 		61680B5224323E6E0094908B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61680B5024323E6E0094908B /* Main.storyboard */; };
 		61680B5424323E760094908B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61680B5324323E760094908B /* Assets.xcassets */; };
 		61680B5724323E760094908B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61680B5524323E760094908B /* LaunchScreen.storyboard */; };
+		617BB4CA246E0AF100468FB3 /* Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617BB4C9246E0AF100468FB3 /* Mute.swift */; };
+		617BB4CC246E0BBD00468FB3 /* mute.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 617BB4CB246E0BBD00468FB3 /* mute.aiff */; };
 		617C48B324620C2D00892F15 /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617C48B224620C2D00892F15 /* MainCollectionViewController.swift */; };
 		617E67662438F08200AE0706 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617E67652438F08200AE0706 /* GameView.swift */; };
 		617E6DF02454DCB40072C98F /* theme.json in Resources */ = {isa = PBXBuildFile; fileRef = 617E6DEF2454DCB40072C98F /* theme.json */; };
@@ -36,6 +38,8 @@
 		61680B5324323E760094908B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61680B5624323E760094908B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		61680B5824323E760094908B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		617BB4C9246E0AF100468FB3 /* Mute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mute.swift; sourceTree = "<group>"; };
+		617BB4CB246E0BBD00468FB3 /* mute.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mute.aiff; sourceTree = "<group>"; };
 		617C48B224620C2D00892F15 /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
 		617E67652438F08200AE0706 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		617E6DEF2454DCB40072C98F /* theme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = theme.json; sourceTree = "<group>"; };
@@ -74,6 +78,7 @@
 		6137509C243D0E9900E0FA0B /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				617BB4CB246E0BBD00468FB3 /* mute.aiff */,
 				6137509F243D180700E0FA0B /* horse-whinny.wav */,
 				61E442EE243BE77900927EA2 /* beep.wav */,
 			);
@@ -101,6 +106,7 @@
 		61680B4924323E6E0094908B /* FindTheVisibleHorse */ = {
 			isa = PBXGroup;
 			children = (
+				617BB4C8246E0ADA00468FB3 /* Utilities */,
 				61933D392453B61100ECC4CE /* View */,
 				61933D382453B5F800ECC4CE /* Model */,
 				61933D3A2453B62700ECC4CE /* Controller */,
@@ -112,6 +118,14 @@
 				6137509B243D0E8400E0FA0B /* Supporting Files */,
 			);
 			path = FindTheVisibleHorse;
+			sourceTree = "<group>";
+		};
+		617BB4C8246E0ADA00468FB3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				617BB4C9246E0AF100468FB3 /* Mute.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		617C48B124620B8F00892F15 /* Data */ = {
@@ -231,6 +245,7 @@
 				61E442EF243BE77900927EA2 /* beep.wav in Resources */,
 				617E6DF02454DCB40072C98F /* theme.json in Resources */,
 				61680B5424323E760094908B /* Assets.xcassets in Resources */,
+				617BB4CC246E0BBD00468FB3 /* mute.aiff in Resources */,
 				61680B5224323E6E0094908B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +290,7 @@
 				61680B4B24323E6E0094908B /* AppDelegate.swift in Sources */,
 				617E67662438F08200AE0706 /* GameView.swift in Sources */,
 				61680B4D24323E6E0094908B /* SceneDelegate.swift in Sources */,
+				617BB4CA246E0AF100468FB3 /* Mute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

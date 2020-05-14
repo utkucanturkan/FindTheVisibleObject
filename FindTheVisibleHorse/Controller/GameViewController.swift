@@ -155,7 +155,7 @@ extension GameViewController: GameDelegate {
         stopSound()
         if success {
             //gameView.config.time = timerCounter
-            showAlert(title: "Would you like to play again?", message: "You have found the image in \(gameView.config.time) seconds...", type: "newGame")
+            showAlert(title: "Would you like to play again?", message: "You have found the image in \(timerCounter) seconds...", type: "newGame")
         }
     }
     

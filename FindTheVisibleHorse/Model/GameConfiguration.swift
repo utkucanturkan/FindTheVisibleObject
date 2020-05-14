@@ -25,21 +25,7 @@ struct GameConfiguration {
     }
     
     var theme: GameTheme
-    var level: GameLevel
-    private var successDuration = 0
-    var time: Int {
-        get {
-            return successDuration
-        }
-        set {
-            if newValue > -1 {
-                successDuration = newValue
-            } else {
-                successDuration = 0
-            }
-        }
-    }
-    
+    var level: GameLevel   
     
     var distanceSoundPath: URL
     var successSoundPath: URL

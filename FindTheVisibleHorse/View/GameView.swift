@@ -33,6 +33,8 @@ class GameView: UIView {
     
     var gameDelegate: GameDelegate!
     
+    var time = 0
+    
     var isRotated = false {
         didSet {
             switch UIDevice.current.orientation {
