@@ -89,7 +89,7 @@ class GameView: UIView {
     }
     
     private func createTargetView() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.0, height: config.targetViewDimensions.1))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.width, height: config.targetViewDimensions.heigth))
         imageView.image = UIImage(named: config.theme.randomTargetImageName)
         imageView.isHidden = true
         imageView.contentMode = .scaleAspectFit
@@ -163,10 +163,10 @@ extension CGPoint {
 }
 
 extension UIView {
-    func randomCenterPoint(in frame: CGRect, offset space: CGFloat = 5) {
+    func randomCenterPoint(in frame: CGRect, offset space: CGFloat = 10) {
         let absoluteSpace = abs(space)
-        let randomX = Int.random(in: Int(absoluteSpace)...Int(frame.maxX - self.bounds.midX - absoluteSpace))
-        let randomY = Int.random(in: Int(absoluteSpace)...Int(frame.maxY - self.bounds.midY - absoluteSpace))
+        let randomX = Int.random(in: Int(self.bounds.midX + absoluteSpace)...Int(frame.maxX - self.bounds.midX - absoluteSpace))
+        let randomY = Int.random(in: Int(self.bounds.midY + absoluteSpace)...Int(frame.maxY - self.bounds.midY - absoluteSpace))
         self.center = CGPoint(x: randomX, y: randomY)
     }
 }

@@ -85,10 +85,11 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         self.title = Constraits.titleText
         themes = fetchLocalThemes()
         configuration = GameConfiguration(theme: themes![themePreferenceIndex], level: level)

@@ -29,7 +29,7 @@ struct GameConfiguration {
     
     var distanceSoundPath: URL
     var successSoundPath: URL
-    var targetViewDimensions: (Double, Double) {
+    var targetViewDimensions: (width: Double, heigth: Double) {
         switch level {
         case .easy:
             return Constraints.maxDimensions
