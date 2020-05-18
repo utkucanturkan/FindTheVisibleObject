@@ -27,7 +27,6 @@ class GameView: UIView {
     var config: GameConfiguration! {
         didSet {
             setup()
-            setNeedsLayout()
         }
     }
     
@@ -35,36 +34,32 @@ class GameView: UIView {
     
     var time = 0
     
+    private var firstDeviceOrientation: UIDeviceOrientation
+    
     var isRotated = false {
         didSet {
             switch UIDevice.current.orientation {
             case .portrait:
                 print("PORTRAIT")
-                print("self.bounds; \(self.bounds)")
-                print("targetView bounds; \(targetView.bounds)")
-                print("targetView frame; \(targetView.frame)")
-                //let newY = self.bounds.maxY - targetView.frame.origin.x - targetView.bounds.height
-                break
-            case .landscapeLeft:
+                targetView.center = CGPoint(x: self.frame.maxY - targetView.center.y, y: targetView.center.x)
                 break
             case .landscapeRight:
-                print("LANDSCAPE")
-                print("self.bounds; \(self.bounds)")
-                print("targetView bounds; \(targetView.bounds)")
-                print("targetView frame; \(targetView.frame)")
-                
-                //let newX = self.bounds.width - targetView.bounds.height - targetView.frame.origin.y
-                //targetView.frame.origin.y = 50
-                //targetView.frame.origin.x = 50
+                print("LANDSCAPE RIGHT")
+                targetView.center = CGPoint(x: self.frame.maxY-targetView.center.y, y: targetView.center.x)
+                break
+            case .landscapeLeft:
+                print("LANDSCAPE LEFT")
+                targetView.center = CGPoint(x: targetView.center.y, y: self.frame.maxX - targetView.center.x)
                 break
             default:
                 break
             }
-            setNeedsLayout()
         }
     }
            
     private var targetView: UIImageView!
+    
+    private var firstTargetViewCenter: CGPoint!
     
     private var isTargetviewFound = false {
         didSet {
@@ -77,24 +72,33 @@ class GameView: UIView {
         }
     }
     
-    private func setup() {
-        setEnableAllGestureRecognizers(to: true)
-        if targetView == nil {
-            createTargetView()
-        } else {
-            targetView.isHidden = true
-            targetView.randomCenterPoint(in: self.bounds)
-            targetView.image = UIImage(named: config.theme.randomTargetImageName)
+    private var shouldSetRandomCenterPointToTargetView = false {
+        didSet {
+            if shouldSetRandomCenterPointToTargetView {
+                setNeedsDisplay()
+            }
         }
     }
     
+    private func setup() {
+        if targetView == nil {
+            self.backgroundColor = UIColor(patternImage: UIImage(named: config.theme.backgroundImageName)!)
+            createTargetView()
+            addSubview(targetView)
+        } else {
+            targetView.isHidden = false
+            targetView.image = UIImage(named: config.theme.randomTargetImageName)
+        }
+        shouldSetRandomCenterPointToTargetView = true
+        setEnableAllGestureRecognizers(to: true)
+    }
+    
     private func createTargetView() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.width, height: config.targetViewDimensions.heigth))
-        imageView.image = UIImage(named: config.theme.randomTargetImageName)
-        imageView.isHidden = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.randomCenterPoint(in: self.bounds)
-        targetView = imageView
+        print("createTargetView")
+        targetView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.width, height: config.targetViewDimensions.heigth))
+        targetView.image = UIImage(named: config.theme.randomTargetImageName)
+        targetView.isHidden = false
+        targetView.contentMode = .scaleAspectFit
     }
     
     private func setEnableAllGestureRecognizers(to value: Bool) {
@@ -142,15 +146,18 @@ class GameView: UIView {
         let normalization = (distance - minDistance)/(hipotenus - minDistance)
         return GameConstraints.maxAudioRate - ((GameConstraints.maxAudioRate-GameConstraints.minAudioRate)*Float(normalization) + GameConstraints.minAudioRate)
     }
-        
+            
     override func draw(_ rect: CGRect) {
-        addSubview(targetView)
-        self.backgroundColor = UIColor(patternImage: UIImage(named: config.theme.backgroundImageName)!)
-        //print("subview; \(self.subviews.count)")
-        //print("self.bounds; \(self.bounds)")
-        //print("targetView bounds; \(targetView.bounds)")
-        //print("targetView frame; \(targetView.frame)")
-        //print("Layout Margins; \(targetView.layoutMargins)")
+        print("draw")
+        print("GameView frame; \(self.frame) GameView bounds; \(self.bounds)")
+        print("targetView frame; \(targetView.frame) targetView bounds; \(targetView.bounds) targetView center; \(targetView.center)")
+        
+        if shouldSetRandomCenterPointToTargetView {
+            targetView.randomCenterPoint(in: self.bounds)
+            firstTargetViewCenter = targetView.center
+            shouldSetRandomCenterPointToTargetView = false
+        }
+        
     }
 }
 
@@ -164,9 +171,10 @@ extension CGPoint {
 
 extension UIView {
     func randomCenterPoint(in frame: CGRect, offset space: CGFloat = 10) {
+        print("frame; \(frame) bounds; \(self.bounds)")
         let absoluteSpace = abs(space)
-        let randomX = Int.random(in: Int(self.bounds.midX + absoluteSpace)...Int(frame.maxX - self.bounds.midX - absoluteSpace))
-        let randomY = Int.random(in: Int(self.bounds.midY + absoluteSpace)...Int(frame.maxY - self.bounds.midY - absoluteSpace))
+        let randomX = Int.random(in: Int(self.bounds.height/2 + absoluteSpace)...Int(frame.maxX - self.bounds.height/2 - absoluteSpace))
+        let randomY = Int.random(in: Int(self.bounds.width/2 + absoluteSpace)...Int(frame.maxY - self.bounds.width/2 - absoluteSpace))
         self.center = CGPoint(x: randomX, y: randomY)
     }
 }
