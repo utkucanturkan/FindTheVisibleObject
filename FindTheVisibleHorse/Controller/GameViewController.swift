@@ -36,15 +36,6 @@ class GameViewController: UIViewController {
         overGame(isSuccess: false)
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        switch UIDevice.current.orientation {
-        case .portrait, .landscapeLeft, .landscapeRight:
-            gameView.isRotated = true
-        default:
-            break
-        }
-    }
-    
     // MARK: variables
     var configuration: GameConfiguration!
         

@@ -33,29 +33,6 @@ class GameView: UIView {
     var gameDelegate: GameDelegate!
     
     var time = 0
-    
-    private var firstDeviceOrientation: UIDeviceOrientation
-    
-    var isRotated = false {
-        didSet {
-            switch UIDevice.current.orientation {
-            case .portrait:
-                print("PORTRAIT")
-                targetView.center = CGPoint(x: self.frame.maxY - targetView.center.y, y: targetView.center.x)
-                break
-            case .landscapeRight:
-                print("LANDSCAPE RIGHT")
-                targetView.center = CGPoint(x: self.frame.maxY-targetView.center.y, y: targetView.center.x)
-                break
-            case .landscapeLeft:
-                print("LANDSCAPE LEFT")
-                targetView.center = CGPoint(x: targetView.center.y, y: self.frame.maxX - targetView.center.x)
-                break
-            default:
-                break
-            }
-        }
-    }
            
     private var targetView: UIImageView!
     
@@ -86,7 +63,7 @@ class GameView: UIView {
             createTargetView()
             addSubview(targetView)
         } else {
-            targetView.isHidden = false
+            targetView.isHidden = true
             targetView.image = UIImage(named: config.theme.randomTargetImageName)
         }
         shouldSetRandomCenterPointToTargetView = true
@@ -94,10 +71,9 @@ class GameView: UIView {
     }
     
     private func createTargetView() {
-        print("createTargetView")
         targetView = UIImageView(frame: CGRect(x: 0, y: 0, width: config.targetViewDimensions.width, height: config.targetViewDimensions.heigth))
         targetView.image = UIImage(named: config.theme.randomTargetImageName)
-        targetView.isHidden = false
+        targetView.isHidden = true
         targetView.contentMode = .scaleAspectFit
     }
     
@@ -148,16 +124,11 @@ class GameView: UIView {
     }
             
     override func draw(_ rect: CGRect) {
-        print("draw")
-        print("GameView frame; \(self.frame) GameView bounds; \(self.bounds)")
-        print("targetView frame; \(targetView.frame) targetView bounds; \(targetView.bounds) targetView center; \(targetView.center)")
-        
         if shouldSetRandomCenterPointToTargetView {
             targetView.randomCenterPoint(in: self.bounds)
             firstTargetViewCenter = targetView.center
             shouldSetRandomCenterPointToTargetView = false
         }
-        
     }
 }
 
@@ -171,7 +142,6 @@ extension CGPoint {
 
 extension UIView {
     func randomCenterPoint(in frame: CGRect, offset space: CGFloat = 10) {
-        print("frame; \(frame) bounds; \(self.bounds)")
         let absoluteSpace = abs(space)
         let randomX = Int.random(in: Int(self.bounds.height/2 + absoluteSpace)...Int(frame.maxX - self.bounds.height/2 - absoluteSpace))
         let randomY = Int.random(in: Int(self.bounds.width/2 + absoluteSpace)...Int(frame.maxY - self.bounds.width/2 - absoluteSpace))
