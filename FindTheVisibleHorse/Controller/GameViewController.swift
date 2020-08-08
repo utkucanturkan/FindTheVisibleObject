@@ -11,8 +11,9 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
-    private struct GameConstraints {
-        static fileprivate let defaultSoundRate = Float(1.0)
+    fileprivate struct GameConstraints {
+        static let defaultSoundRate = Float(1.0)
+        static let exitAlertTitle = "End Game"
     }
     
     // MARK: Lifecycle
@@ -94,28 +95,30 @@ class GameViewController: UIViewController {
         if recognizer.state == .ended {
             stopTimer()
             stopSound()
-            showAlert(title: "End Game", message: "Do you really want to end the game?", type: "exit")
+            showExitAlert()
         }
     }
     
-    
     // TODO: encapsulate alert implementation
     
-    func showAlert(title: String, message: String, type: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    func showExitAlert() {
+        let alert = UIAlertController(title: "End Game", message: "Do you really want to end the game?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default){ _ in
-            if type == "exit" {
-                self.navigationController?.popViewController(animated: true)
-            } else if type == "newGame" {
-                self.startNewGame()
-            }
+            self.navigationController?.popViewController(animated: true)
         })
-        alert.addAction(UIAlertAction(title: "No", style: .cancel) { _ in
-             if type == "newGame" {
-                self.navigationController?.popViewController(animated: true)
-            } else if type == "exit" {
-                self.startTimer()
-            }
+        alert.addAction(UIAlertAction(title: "No", style: .default){ _ in
+            self.startTimer()
+        })
+        self.present(alert, animated: true)
+    }
+    
+    func showNewGameAlert() {
+        let alert = UIAlertController(title: "New Game", message: "You have found the image in \(timerCounter) seconds...", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default){ _ in
+            self.startNewGame()
+        })
+        alert.addAction(UIAlertAction(title: "No", style: .default){ _ in
+            self.navigationController?.popViewController(animated: true)
         })
         self.present(alert, animated: true)
     }
@@ -146,7 +149,7 @@ extension GameViewController: GameDelegate {
         stopSound()
         if success {
             //gameView.config.time = timerCounter
-            showAlert(title: "Would you like to play again?", message: "You have found the image in \(timerCounter) seconds...", type: "newGame")
+            showNewGameAlert()
         }
     }
     
